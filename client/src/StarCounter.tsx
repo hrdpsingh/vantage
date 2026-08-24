@@ -1,3 +1,9 @@
 export function StarCounter() {
-    return null
+    return (
+        <>
+            <input placeholder="Owner" />
+            <input placeholder="Repository" />
+            <button>Fetch Stars</button>
+        </>
+    );
 }
