@@ -3,15 +3,22 @@ name = "server"
 version = "0.1.0"
 description = "A repository analytics tool powered by GitHub API."
 package-mode = false
+requires-python = ">=3.14"
+
 authors = [
     {name = "hrdpsingh",email = "harshdeep.s.rakkar@gmail.com"}
 ]
-requires-python = ">=3.14"
+
 dependencies = [
     "fastapi (>=0.141.1,<0.142.0)",
     "uvicorn (>=0.52.4,<0.53.0)",
     "httpx2 (>=2.12.0,<3.0.0)",
     "requests (>=2.34.2,<3.0.0)"
+]
+
+[dependency-groups]
+dev = [
+    "pytest (>=9.1.1,<10.0.0)"
 ]
 
 [tool.pytest.ini_options]
@@ -20,8 +27,3 @@ pythonpath = ["src"]
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
-
-[dependency-groups]
-dev = [
-    "pytest (>=9.1.1,<10.0.0)"
-]
