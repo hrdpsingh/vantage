@@ -34,7 +34,7 @@ def test_get_stars_success(mock_get: MagicMock):
 
 
 def test_get_stars_missing_username():
-    """Test routing when username is missing (path becomes invalid)."""
+    """Test routing when username is missing."""
     response = client.get(f"/repository/{REPOSITORY}/stars")
     assert response.status_code == status.HTTP_404_NOT_FOUND
 
