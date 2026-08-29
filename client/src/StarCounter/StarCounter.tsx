@@ -22,26 +22,19 @@ export function StarCounter() {
                 `${encodeURIComponent(owner)}/` +
                 `${encodeURIComponent(repository)}/stars`;
 
-            console.log('Fetching:', url);
-
             const response = await fetch(url);
-
-            console.log('Status:', response.status);
 
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}`);
             }
 
             const data: RepositoryStarsResponse = await response.json();
-
-            console.log('Response:', data);
-
             setStars(data.stargazers_count);
-        } catch (err) {
-            console.error('Fetch failed:', err);
+        } catch (error) {
+            console.error('Fetch failed:', error);
 
             setError(
-                err instanceof Error ? err.message : 'Could not fetch repository stars.'
+                error instanceof Error ? error.message : 'Could not fetch repository stars.'
             );
         }
     }
