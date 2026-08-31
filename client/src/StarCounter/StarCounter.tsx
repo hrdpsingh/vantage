@@ -31,8 +31,6 @@ export function StarCounter() {
             const data: RepositoryStarsResponse = await response.json();
             setStars(data.stargazers_count);
         } catch (error) {
-            console.error('Fetch failed:', error);
-
             setError(
                 error instanceof Error ? error.message : 'Could not fetch repository stars.'
             );
