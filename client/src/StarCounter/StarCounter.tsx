@@ -1,65 +1,72 @@
-import { useState } from 'react';
+import { useState } from "react";
+import Input from "../Components/Input";
 
 type RepositoryStarsResponse = {
-    owner: string;
-    repository: string;
-    stargazers_count: number;
+  owner: string;
+  repository: string;
+  stargazers_count: number;
 };
 
 export function StarCounter() {
-    const [owner, setOwner] = useState('');
-    const [repository, setRepository] = useState('');
-    const [stars, setStars] = useState<number | null>(null);
-    const [error, setError] = useState('');
+  const [owner, setOwner] = useState("");
+  const [repository, setRepository] = useState("");
+  const [stars, setStars] = useState<number | null>(null);
+  const [error, setError] = useState("");
 
-    async function fetchStars() {
-        setError('');
-        setStars(null);
+  async function fetchStars() {
+    setError("");
+    setStars(null);
 
-        try {
-            const url =
-                `http://127.0.0.1:8000/repository/` +
-                `${encodeURIComponent(owner)}/` +
-                `${encodeURIComponent(repository)}/stars`;
+    try {
+      const url =
+        `http://127.0.0.1:8000/repository/` +
+        `${encodeURIComponent(owner)}/` +
+        `${encodeURIComponent(repository)}/stars`;
 
-            const response = await fetch(url);
+      const response = await fetch(url);
 
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}`);
-            }
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
 
-            const data: RepositoryStarsResponse = await response.json();
-            setStars(data.stargazers_count);
-        } catch (error) {
-            setError(
-                error instanceof Error ? error.message : 'Could not fetch repository stars.'
-            );
-        }
+      const data: RepositoryStarsResponse = await response.json();
+      setStars(data.stargazers_count);
+    } catch (error) {
+      setError(
+        error instanceof Error
+          ? error.message
+          : "Could not fetch repository stars.",
+      );
     }
+  }
 
-    return (
-        <main>
-            <h1>GitHub Star Counter</h1>
+  return (
+    <main className="p-4">
+      <div className="flex flex-col gap-4 w-64">
+        <Input
+          placeholder="Owner"
+          value={owner}
+          onChange={(event) => setOwner(event.target.value)}
+        />
 
-            <input
-                placeholder="Owner"
-                value={owner}
-                onChange={(e) => setOwner(e.target.value)}
-            />
+        <Input
+          placeholder="Repository"
+          value={repository}
+          onChange={(event) => setRepository(event.target.value)}
+        />
 
-            <input
-                placeholder="Repository"
-                value={repository}
-                onChange={(e) => setRepository(e.target.value)}
-            />
+        <button
+          className="bg-blue-400 hover:bg-blue-500 text-white rounded-full py-1 px-3"
+          onClick={fetchStars}
+          disabled={!owner || !repository}
+        >
+          Fetch
+        </button>
 
-            <button onClick={fetchStars} disabled={!owner || !repository}>
-                Fetch Stars
-            </button>
+        {stars !== null && <p>Stars: {stars}</p>}
 
-            {stars !== null && <p>Stars: {stars}</p>}
-
-            {error && <p role="alert">{error}</p>}
-        </main>
-    );
+        {error && <p role="alert">{error}</p>}
+      </div>
+    </main>
+  );
 }
