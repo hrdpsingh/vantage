@@ -56,7 +56,7 @@ export function StarCounter() {
         />
 
         <button
-          className="bg-blue-400 hover:bg-blue-500 text-white rounded-full py-1 px-3"
+          className="bg-blue-500 hover:bg-blue-600 disabled:bg-blue-400 text-white rounded-full py-1 px-3"
           onClick={fetchStars}
           disabled={!owner || !repository}
         >
