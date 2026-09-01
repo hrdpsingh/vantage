@@ -11,33 +11,25 @@ export function StarCounter() {
   const [owner, setOwner] = useState("");
   const [repository, setRepository] = useState("");
   const [stars, setStars] = useState<number | null>(null);
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string | null>(null);
 
   async function fetchStars() {
-    setError("");
+    setError(null);
     setStars(null);
 
-    try {
-      const url =
-        `http://127.0.0.1:8000/repository/` +
-        `${encodeURIComponent(owner)}/` +
-        `${encodeURIComponent(repository)}/stars`;
+    const url =
+      `http://127.0.0.1:8000/repository/` +
+      `${encodeURIComponent(owner)}/` +
+      `${encodeURIComponent(repository)}/stars`;
 
-      const response = await fetch(url);
+    const response = await fetch(url);
+    const data: RepositoryStarsResponse = await response.json();
 
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
-      }
-
-      const data: RepositoryStarsResponse = await response.json();
-      setStars(data.stargazers_count);
-    } catch (error) {
-      setError(
-        error instanceof Error
-          ? error.message
-          : "Could not fetch repository stars.",
-      );
+    if (!data.stargazers_count) {
+      setError("Repository not found.");
     }
+
+    setStars(data.stargazers_count);
   }
 
   return (
@@ -48,13 +40,11 @@ export function StarCounter() {
           value={owner}
           onChange={(event) => setOwner(event.target.value)}
         />
-
         <Input
           placeholder="Repository"
           value={repository}
           onChange={(event) => setRepository(event.target.value)}
         />
-
         <button
           className="bg-blue-500 hover:bg-blue-600 disabled:bg-blue-400 text-white rounded-full py-1 px-3"
           onClick={fetchStars}
@@ -64,8 +54,7 @@ export function StarCounter() {
         </button>
 
         {stars !== null && <p>Stars: {stars}</p>}
-
-        {error && <p role="alert">{error}</p>}
+        {error !== null && <p>{error}</p>}
       </div>
     </main>
   );

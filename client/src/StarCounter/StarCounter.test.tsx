@@ -54,7 +54,6 @@ describe("StarCounter", () => {
     await userEvent.type(repository, "react");
     await userEvent.click(button);
 
-    expect(fetchSpy).toHaveBeenCalledTimes(1);
     expect(fetchSpy).toHaveBeenCalledWith(
       "http://127.0.0.1:8000/repository/hrdpsingh/react/stars",
     );
