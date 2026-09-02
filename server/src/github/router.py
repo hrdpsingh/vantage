@@ -1,6 +1,7 @@
 import requests
 from fastapi import APIRouter, HTTPException, status
 from github.models import Overview
+from github.services import format_date
 
 router = APIRouter()
 
@@ -16,4 +17,8 @@ def get_stars(username: str, repository: str) -> Overview:
         )
 
     data = response.json()
-    return Overview(star_count=data["stargazers_count"])
+
+    star_count = data["stargazers_count"]
+    last_update = format_date(data["updated_at"])
+
+    return Overview(star_count=star_count, last_update=last_update)

@@ -5,11 +5,13 @@ export function Dashboard() {
   const [username, setUsername] = useState("");
   const [repository, setRepository] = useState("");
   const [stars, setStars] = useState<number | null>(null);
+  const [lastUpdate, setLastUpdate] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   async function fetchOverview() {
-    setError(null);
     setStars(null);
+    setLastUpdate(null);
+    setError(null);
 
     const url = `http://127.0.0.1:8000/repository/${username}/${repository}/overview`;
 
@@ -22,6 +24,7 @@ export function Dashboard() {
     }
 
     setStars(data.star_count);
+    setLastUpdate(data.last_update);
   }
 
   return (
@@ -46,6 +49,7 @@ export function Dashboard() {
         </button>
 
         {stars !== null && <p>Stars: {stars}</p>}
+        {lastUpdate !== null && <p>Last Updated: {lastUpdate}</p>}
         {error !== null && <p>{error}</p>}
       </div>
     </main>
