@@ -15,7 +15,7 @@ describe("Dashboard", () => {
   it("provides valid username and repository and checks result", async () => {
     const fetchSpy = vi.spyOn(globalThis, "fetch").mockResolvedValue({
       status: 200,
-      json: async () => ({ star_count: 1000 }),
+      json: async () => ({ star_count: 1000, last_update: "2026.09.02" }),
     } as Response);
 
     render(<Dashboard />);
@@ -33,6 +33,9 @@ describe("Dashboard", () => {
     );
 
     expect(await screen.findByText("Stars: 1000")).toBeInTheDocument();
+    expect(
+      await screen.findByText("Last Updated: 2026.09.02"),
+    ).toBeInTheDocument();
   });
 
   it("provides invalid repository and checks result", async () => {
