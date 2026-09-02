@@ -41,7 +41,7 @@ export function Dashboard() {
           onChange={(event) => setRepository(event.target.value)}
         />
         <button
-          className="bg-blue-500 hover:bg-blue-600 disabled:bg-blue-400 text-white rounded-full py-1 px-3"
+          className="cursor-pointer bg-blue-500 hover:bg-blue-600 disabled:cursor-default disabled:bg-blue-400 text-white rounded-full py-1 px-3"
           onClick={fetchOverview}
           disabled={!username || !repository}
         >
