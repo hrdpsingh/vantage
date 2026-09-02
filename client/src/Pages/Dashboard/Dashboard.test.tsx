@@ -1,11 +1,11 @@
 import userEvent from "@testing-library/user-event";
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
-import { StarCounter } from "./StarCounter";
+import { Dashboard } from "./Dashboard";
 
-describe("StarCounter", () => {
+describe("Dashboard", () => {
   it("renders input fields and submit button on initial load", () => {
-    render(<StarCounter />);
+    render(<Dashboard />);
 
     expect(screen.getByPlaceholderText(/owner/i)).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/repository/i)).toBeInTheDocument();
@@ -19,7 +19,7 @@ describe("StarCounter", () => {
       json: async () => ({ stargazers_count: 1000 }),
     } as Response);
 
-    render(<StarCounter />);
+    render(<Dashboard />);
 
     const username = screen.getByPlaceholderText(/owner/i);
     const repository = screen.getByPlaceholderText(/repository/i);
@@ -39,12 +39,11 @@ describe("StarCounter", () => {
 
   it("provides invalid username and repository and checks result", async () => {
     const fetchSpy = vi.spyOn(globalThis, "fetch").mockResolvedValue({
-      ok: true,
       status: 404,
       json: async () => ({ status_code: 404, detail: "Repository not found" }),
     } as Response);
 
-    render(<StarCounter />);
+    render(<Dashboard />);
 
     const username = screen.getByPlaceholderText(/owner/i);
     const repository = screen.getByPlaceholderText(/repository/i);

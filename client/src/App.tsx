@@ -1,5 +1,5 @@
-import { StarCounter } from './StarCounter/StarCounter';
+import { Dashboard } from "./Pages/Dashboard/Dashboard";
 
 export default function App() {
-  return <StarCounter />;
+  return <Dashboard />;
 }

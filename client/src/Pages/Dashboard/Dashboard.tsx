@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Input from "../Components/Input";
+import Input from "../../Components/Input";
 
 type RepositoryStarsResponse = {
   owner: string;
@@ -7,7 +7,7 @@ type RepositoryStarsResponse = {
   stargazers_count: number;
 };
 
-export function StarCounter() {
+export function Dashboard() {
   const [owner, setOwner] = useState("");
   const [repository, setRepository] = useState("");
   const [stars, setStars] = useState<number | null>(null);
