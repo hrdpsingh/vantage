@@ -1,3 +1,4 @@
+import json
 from unittest.mock import MagicMock, patch
 
 from fastapi import status
@@ -12,17 +13,17 @@ def test_get_overview_success(mock_get: MagicMock):
     """Test successful retrieval of overview with valid repository details."""
     mock_response = MagicMock()
     mock_response.status_code = status.HTTP_200_OK
-    mock_response.json.return_value = {
-        "stargazers_count": 10000,
-        "updated_at": "2026-09-02T12:53:31Z",
-    }
 
+    with open("src/tests/mocks/overview.success.json") as file:
+        data = json.load(file)
+
+    mock_response.json.return_value = data
     mock_get.return_value = mock_response
 
     response = client.get("/repository/microsoft/vscode/overview")
 
     assert response.status_code == status.HTTP_200_OK
-    assert response.json() == {"star_count": 10000, "last_update": "2026.09.02"}
+    assert response.json() == {"star_count": 190406, "last_update": "2026.09.02"}
 
 
 def test_get_overview_missing_username():
