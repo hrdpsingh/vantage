@@ -37,7 +37,13 @@ def test_get_overview_invalid_repository(mock_get: MagicMock):
     """Test behavior when repository does not exist under a valid user."""
     mock_response = MagicMock()
     mock_response.status_code = status.HTTP_404_NOT_FOUND
+
+    with open("src/tests/mocks/overview.invalid.json") as file:
+        data = json.load(file)
+
+    mock_response.json.return_value = data
     mock_get.return_value = mock_response
 
     response = client.get("/repository/microsoft/angular/overview")
+
     assert response.status_code == status.HTTP_404_NOT_FOUND
