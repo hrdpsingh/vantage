@@ -1,7 +1,7 @@
 [project]
 name = "server"
 version = "0.1.0"
-description = "A repository analytics tool powered by GitHub API."
+description = "A repository analytics tool powered by the GitHub API."
 package-mode = false
 requires-python = ">=3.14"
 

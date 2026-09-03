@@ -23,7 +23,11 @@ def test_get_overview_success(mock_get: MagicMock):
     response = client.get("/repository/microsoft/vscode/overview")
 
     assert response.status_code == status.HTTP_200_OK
-    assert response.json() == {"star_count": 190406, "last_update": "2026.09.02"}
+    assert response.json() == {
+        "star_count": 190406,
+        "fork_count": 41941,
+        "last_update": "2026.09.02",
+    }
 
 
 def test_get_overview_missing_username():
