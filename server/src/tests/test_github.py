@@ -14,7 +14,7 @@ def test_get_overview_success(mock_get: MagicMock):
     mock_response = MagicMock()
     mock_response.status_code = status.HTTP_200_OK
 
-    with open("src/tests/mocks/overview.success.json") as file:
+    with open("src/tests/mocks/overview.valid.json") as file:
         data = json.load(file)
 
     mock_response.json.return_value = data

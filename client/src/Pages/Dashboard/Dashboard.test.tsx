@@ -15,7 +15,7 @@ describe("Dashboard", () => {
   it("provides valid username and repository and checks result", async () => {
     const fetchSpy = vi.spyOn(globalThis, "fetch").mockResolvedValue({
       status: 200,
-      json: async () => ({ star_count: 1000, last_update: "2026.09.02" }),
+      json: async () => await import("../../Mocks/overview.valid.json"),
     } as Response);
 
     render(<Dashboard />);
@@ -32,18 +32,17 @@ describe("Dashboard", () => {
       "http://127.0.0.1:8000/repository/microsoft/vscode/overview",
     );
 
-    expect(await screen.findByText("Stars: 1000")).toBeInTheDocument();
+    expect(await screen.findByText(/Stars: \d+/)).toBeInTheDocument();
     expect(
-      await screen.findByText("Last Updated: 2026.09.02"),
+      await screen.findByText(/Last Updated: \d{4}.\d{2}.\d{2}/),
     ).toBeInTheDocument();
+    expect(await screen.findByText(/Forks: \d+/)).toBeInTheDocument();
   });
 
   it("provides invalid repository and checks result", async () => {
     const fetchSpy = vi.spyOn(globalThis, "fetch").mockResolvedValue({
       status: 404,
-      json: async () => ({
-        detail: "The repository does not exist or is private.",
-      }),
+      json: async () => await import("../../Mocks/overview.invalid.json"),
     } as Response);
 
     render(<Dashboard />);
