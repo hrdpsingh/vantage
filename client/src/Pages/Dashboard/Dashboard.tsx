@@ -6,12 +6,14 @@ export function Dashboard() {
   const [repository, setRepository] = useState("");
   const [stars, setStars] = useState<number | null>(null);
   const [forks, setForks] = useState<number | null>(null);
+  const [issues, setIssues] = useState<number | null>(null);
   const [lastUpdate, setLastUpdate] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   async function fetchOverview() {
     setStars(null);
     setForks(null);
+    setIssues(null);
     setLastUpdate(null);
     setError(null);
 
@@ -27,6 +29,7 @@ export function Dashboard() {
 
     setStars(data.star_count);
     setForks(data.fork_count);
+    setIssues(data.issues);
     setLastUpdate(data.last_update);
   }
 
@@ -53,6 +56,7 @@ export function Dashboard() {
 
         {stars !== null && <p>Stars: {stars}</p>}
         {forks !== null && <p>Forks: {forks}</p>}
+        {issues !== null && <p>Issues: {issues}</p>}
         {lastUpdate !== null && <p>Last Updated: {lastUpdate}</p>}
         {error !== null && <p>{error}</p>}
       </div>

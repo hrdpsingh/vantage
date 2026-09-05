@@ -64,7 +64,7 @@ describe("Dashboard", () => {
     );
 
     expect(
-      screen.getByText("The repository does not exist or is private."),
+      await screen.findByText("The repository does not exist or is private."),
     ).toBeInTheDocument();
   });
 });
