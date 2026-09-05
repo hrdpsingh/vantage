@@ -21,7 +21,11 @@ def get_stars(username: str, repository: str) -> Overview:
     star_count = data["stargazers_count"]
     last_update = format_date(data["updated_at"])
     fork_count = data["forks_count"]
+    issues = data["open_issues"]
 
     return Overview(
-        star_count=star_count, fork_count=fork_count, last_update=last_update
+        star_count=star_count,
+        fork_count=fork_count,
+        issues=issues,
+        last_update=last_update,
     )
