@@ -37,6 +37,7 @@ describe("Dashboard", () => {
       await screen.findByText(/Last Updated: \d{4}.\d{2}.\d{2}/),
     ).toBeInTheDocument();
     expect(await screen.findByText(/Forks: \d+/)).toBeInTheDocument();
+    expect(await screen.findByText(/Issues: \d+/)).toBeInTheDocument();
   });
 
   it("provides invalid repository and checks result", async () => {
