@@ -6,3 +6,9 @@ class Overview(BaseModel):
     fork_count: int
     issues: int
     last_update: str
+    remaining_requests: int | None
+
+
+class CommitHistory(BaseModel):
+    week: int
+    total: int
