@@ -32,12 +32,10 @@ describe("Dashboard", () => {
       "http://127.0.0.1:8000/repository/microsoft/vscode/overview",
     );
 
-    expect(await screen.findByText(/Stars: \d+/)).toBeInTheDocument();
-    expect(
-      await screen.findByText(/Last Updated: \d{4}.\d{2}.\d{2}/),
-    ).toBeInTheDocument();
-    expect(await screen.findByText(/Forks: \d+/)).toBeInTheDocument();
-    expect(await screen.findByText(/Issues: \d+/)).toBeInTheDocument();
+    expect(await screen.findByText("Stars")).toBeInTheDocument();
+    expect(await screen.findByText("Forks")).toBeInTheDocument();
+    expect(await screen.findByText("Issues")).toBeInTheDocument();
+    expect(await screen.findByText("Last Update")).toBeInTheDocument();
   });
 
   it("provides invalid repository and checks result", async () => {

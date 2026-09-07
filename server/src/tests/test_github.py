@@ -21,7 +21,13 @@ def test_get_overview_success(mock_get: MagicMock):
     mock_get.return_value = mock_response
 
     response = client.get("/repository/microsoft/vscode/overview")
-    required = {"star_count", "fork_count", "issues", "last_update"}
+    required = {
+        "star_count",
+        "fork_count",
+        "issues",
+        "last_update",
+        "remaining_requests",
+    }
 
     assert response.status_code == status.HTTP_200_OK
     assert required.issubset(response.json())
@@ -46,5 +52,42 @@ def test_get_overview_invalid_repository(mock_get: MagicMock):
     mock_get.return_value = mock_response
 
     response = client.get("/repository/microsoft/angular/overview")
+
+    assert response.status_code == status.HTTP_404_NOT_FOUND
+
+
+@patch("github.router.requests.get")
+def test_get_commit_history_success(mock_get: MagicMock):
+    """Test successful retrieval of commit history with valid repository details."""
+    mock_response = MagicMock()
+    mock_response.status_code = status.HTTP_200_OK
+
+    with open("src/tests/mocks/commit-history.valid.json") as file:
+        data = json.load(file)
+
+    mock_response.json.return_value = data
+    mock_get.return_value = mock_response
+
+    response = client.get("/repository/microsoft/vscode/commit-history")
+    required = {"total", "week"}
+
+    assert response.status_code == status.HTTP_200_OK
+    assert required.issubset(response.json()[0])
+    assert len(response.json()) == 52
+
+
+@patch("github.router.requests.get")
+def test_get_commit_history_nonexistent_repository(mock_get: MagicMock):
+    """Test behavior when repository does not exist under a valid user."""
+    mock_response = MagicMock()
+    mock_response.status_code = status.HTTP_404_NOT_FOUND
+
+    with open("src/tests/mocks/commit-history.invalid.json") as file:
+        data = json.load(file)
+
+    mock_response.json.return_value = data
+    mock_get.return_value = mock_response
+
+    response = client.get("/repository/microsoft/angular/commit-history")
 
     assert response.status_code == status.HTTP_404_NOT_FOUND
