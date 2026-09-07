@@ -1,5 +1,7 @@
 import { useState } from "react";
-import Input from "../../Components/Input";
+import { Input } from "../../Components/Input";
+import { Card } from "../../Components/Card";
+import { Info } from "../../Components/Info";
 
 export function Dashboard() {
   const [username, setUsername] = useState("");
@@ -34,7 +36,7 @@ export function Dashboard() {
   }
 
   return (
-    <main className="p-4">
+    <main className="p-4 bg-blue-100 min-h-screen">
       <div className="flex flex-col gap-4 w-64">
         <Input
           placeholder="Username"
@@ -54,10 +56,20 @@ export function Dashboard() {
           Fetch
         </button>
 
-        {stars !== null && <p>Stars: {stars}</p>}
-        {forks !== null && <p>Forks: {forks}</p>}
-        {issues !== null && <p>Issues: {issues}</p>}
-        {lastUpdate !== null && <p>Last Updated: {lastUpdate}</p>}
+        <div className="flex flex-col sm:flex-row gap-4">
+          {stars !== null && (
+            <Card content=<Info header="Stars" value={String(stars)} /> />
+          )}
+          {forks !== null && (
+            <Card content=<Info header="Forks" value={String(forks)} /> />
+          )}
+          {issues !== null && (
+            <Card content=<Info header="Issues" value={String(issues)} /> />
+          )}
+          {lastUpdate !== null && (
+            <Card content=<Info header="Last Update" value={lastUpdate} /> />
+          )}
+        </div>
         {error !== null && <p>{error}</p>}
       </div>
     </main>
