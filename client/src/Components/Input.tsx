@@ -10,7 +10,7 @@ export function Input({ placeholder, value, onChange }: InputProps) {
   return (
     <input
       placeholder={placeholder}
-      className="border focus:outline-blue-400 border-gray-400 rounded-full py-1 px-3"
+      className="border focus:outline-blue-400 border-gray-400 bg-blue-50 rounded-full py-1 px-3"
       value={value}
       onChange={onChange}
     />
