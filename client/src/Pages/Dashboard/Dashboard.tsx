@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Card } from "../../Components/Card";
 import { Info } from "../../Components/Info";
+import { CommitGraph } from "../../Components/CommitGraph";
 import { useLocation } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 
@@ -47,7 +48,7 @@ export function Dashboard() {
   }, [username, repository]);
 
   return (
-    <main className="p-4 bg-blue-100 min-h-screen">
+    <main className="p-4 bg-blue-100 min-h-screen gap-8">
       <div className="flex flex-col sm:flex-row gap-4">
         {showDashboard && (
           <Card content=<Info header="Stars" value={String(stars)} /> />
@@ -62,6 +63,9 @@ export function Dashboard() {
           <Card content=<Info header="Last Update" value={lastUpdate} /> />
         )}
       </div>
+      {showDashboard && (
+        <CommitGraph username={username} repository={repository}></CommitGraph>
+      )}
       {error !== null && <p>{error}</p>}
       {loading && <ClipLoader loading={loading}></ClipLoader>}
     </main>

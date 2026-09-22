@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, HttpUrl
 
 
 class Overview(BaseModel):
@@ -10,5 +10,15 @@ class Overview(BaseModel):
 
 
 class CommitHistory(BaseModel):
-    week: int
+    week: str
     total: int
+
+
+class Author(BaseModel):
+    login: str
+    avatar_url: HttpUrl
+
+
+class Contributors(BaseModel):
+    total: int
+    author: Author | None

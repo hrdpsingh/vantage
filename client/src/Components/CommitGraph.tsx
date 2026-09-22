@@ -1,6 +1,5 @@
-import { Chart, LinearScale, LineElement, PointElement } from "chart.js";
 import { useState, useEffect } from "react";
-import { Line } from "react-chartjs-2";
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
 interface BarGraphProps {
   username: string;
@@ -11,8 +10,6 @@ interface DataPoint {
   total: number;
   week: number;
 }
-
-Chart.register(LinearScale, PointElement, LineElement);
 
 export function CommitGraph({ username, repository }: BarGraphProps) {
   const [data, setData] = useState<DataPoint[]>([]);
@@ -29,16 +26,15 @@ export function CommitGraph({ username, repository }: BarGraphProps) {
     fetchCommitHistory();
   }, [repository, username]);
 
-  const chartData = {
-    labels: data.map((dictionary) => dictionary.week),
-    datasets: [
-      {
-        label: "Commits",
-        data: data.map((dictionary) => dictionary.total),
-        tension: 0.2,
-      },
-    ],
-  };
-
-  return <Line data={chartData}></Line>;
+  return (
+    <div style={{ width: 600, height: 400 }}>
+      <ResponsiveContainer>
+        <BarChart data={data}>
+          <XAxis dataKey="week"></XAxis>
+          <YAxis></YAxis>
+          <Bar dataKey="total" fill="#2196f3"></Bar>
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
+  );
 }
