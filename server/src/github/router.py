@@ -5,7 +5,7 @@ import httpx2
 from dotenv import load_dotenv
 from fastapi import APIRouter, Depends, HTTPException, status
 from github.dependencies import get_http_client
-from github.models import CommitHistory, Contributors, Overview
+from github.models import CommitHistory, CommitPatterns, Contributors, Overview
 from github.services import format_date
 
 load_dotenv()
@@ -93,6 +93,21 @@ async def get_contributors(username: str, repository: str):
             url=f"https://api.github.com/repos/{username}/{repository}/stats/contributors",
             headers=headers,
             timeout=10,
+        )
+
+        data = response.json()
+        return data
+
+
+@router.get(
+    "/repository/{username}/{repository}/commit-patterns",
+    response_model=CommitPatterns,
+)
+async def get_commit_patterns(username: str, repository: str):
+    async with httpx2.AsyncClient() as client:
+        response = await client.get(
+            url=f"https://api.github.com/repos/{username}/{repository}/stats/punch_card",
+            headers=headers,
         )
 
         data = response.json()

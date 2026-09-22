@@ -4,6 +4,8 @@ import { Info } from "../../Components/Info";
 import { CommitGraph } from "../../Components/CommitGraph";
 import { useLocation } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
+import { Contributors } from "../../Components/Contributors";
+import { Heatmap } from "../../Components/Heatmap";
 
 export function Dashboard() {
   const [stars, setStars] = useState<number | null>(null);
@@ -65,6 +67,15 @@ export function Dashboard() {
       </div>
       {showDashboard && (
         <CommitGraph username={username} repository={repository}></CommitGraph>
+      )}
+      {showDashboard && (
+        <Contributors
+          username={username}
+          repository={repository}
+        ></Contributors>
+      )}
+      {showDashboard && (
+        <Heatmap username={username} repository={repository}></Heatmap>
       )}
       {error !== null && <p>{error}</p>}
       {loading && <ClipLoader loading={loading}></ClipLoader>}
