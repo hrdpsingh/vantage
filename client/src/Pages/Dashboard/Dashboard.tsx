@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { Contributors } from "../../Components/Contributors";
 import { Heatmap } from "../../Components/Heatmap";
 import { Overview } from "../../Components/Overview";
+import { Languages } from "../../Components/Languages";
 
 export function Dashboard() {
   const location = useLocation();
@@ -15,6 +16,7 @@ export function Dashboard() {
       <CommitGraph username={username} repository={repository}></CommitGraph>
       <Contributors username={username} repository={repository}></Contributors>
       <Heatmap username={username} repository={repository}></Heatmap>
+      <Languages username={username} repository={repository}></Languages>
     </main>
   );
 }

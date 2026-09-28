@@ -35,3 +35,7 @@ CommitData = tuple[
 
 class CommitPatterns(RootModel[list[CommitData]]):
     pass
+
+
+class Topics(BaseModel):
+    names: list[str]

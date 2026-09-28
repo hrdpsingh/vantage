@@ -5,8 +5,8 @@ import httpx2
 from dotenv import load_dotenv
 from fastapi import APIRouter, Depends, HTTPException, status
 from github.dependencies import get_http_client
-from github.models import CommitHistory, CommitPatterns, Contributors, Overview
-from github.services import format_date
+from github.models import CommitHistory, CommitPatterns, Contributors, Overview, Topics
+from github.services import compute_percentages, format_date
 
 load_dotenv()
 GITHUB_PAT = os.environ["GITHUB_PAT"]
@@ -107,6 +107,36 @@ async def get_commit_patterns(username: str, repository: str):
     async with httpx2.AsyncClient() as client:
         response = await client.get(
             url=f"https://api.github.com/repos/{username}/{repository}/stats/punch_card",
+            headers=headers,
+        )
+
+        data = response.json()
+        return data
+
+
+@router.get(
+    "/repository/{username}/{repository}/languages",
+    response_model=dict[str, float],
+)
+async def get_languages(username: str, repository: str):
+    async with httpx2.AsyncClient() as client:
+        response = await client.get(
+            url=f"https://api.github.com/repos/{username}/{repository}/languages",
+            headers=headers,
+        )
+
+        data = compute_percentages(response.json())
+        return data
+
+
+@router.get(
+    "/repository/{username}/{repository}/topics",
+    response_model=Topics,
+)
+async def get_topics(username: str, repository: str):
+    async with httpx2.AsyncClient() as client:
+        response = await client.get(
+            url=f"https://api.github.com/repos/{username}/{repository}/topics",
             headers=headers,
         )
 

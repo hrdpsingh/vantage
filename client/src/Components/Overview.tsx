@@ -1,12 +1,8 @@
 import { Card } from "./Card";
 import { Info } from "./Info";
-import { useFetch } from "../Helpers/useFetch";
+import { useFetch } from "../hooks/useFetch";
 import ClipLoader from "react-spinners/ClipLoader";
-
-interface Details {
-  username: string;
-  repository: string;
-}
+import type { Details } from "../types/repository";
 
 interface Data {
   star_count: number;

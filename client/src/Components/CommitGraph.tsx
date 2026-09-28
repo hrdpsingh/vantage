@@ -1,18 +1,14 @@
 import ClipLoader from "react-spinners/ClipLoader";
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
-import { useFetch } from "../Helpers/useFetch";
-
-interface BarGraphProps {
-  username: string;
-  repository: string;
-}
+import { useFetch } from "../hooks/useFetch";
+import type { Details } from "../types/repository";
 
 interface DataPoint {
   total: number;
   week: number;
 }
 
-export function CommitGraph({ username, repository }: BarGraphProps) {
+export function CommitGraph({ username, repository }: Details) {
   const url = `http://127.0.0.1:8000/repository/${username}/${repository}/commit-history`;
   const data = useFetch<DataPoint[]>(username, repository, url);
 
