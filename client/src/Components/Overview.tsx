@@ -19,16 +19,18 @@ export function Overview({ username, repository }: Details) {
     <div>
       {data ? (
         <div className="flex flex-col sm:flex-row gap-4">
-          <Card
-            content=<Info header="Stars" value={String(data.star_count)} />
-          />
-          <Card
-            content=<Info header="Forks" value={String(data.fork_count)} />
-          />
-          <Card content=<Info header="Issues" value={String(data.issues)} /> />
-          <Card
-            content=<Info header="Last Update" value={data.last_update} />
-          />
+          <Card>
+            <Info header="Stars" value={String(data.star_count)} />
+          </Card>
+          <Card>
+            <Info header="Forks" value={String(data.fork_count)} />
+          </Card>
+          <Card>
+            <Info header="Issues" value={String(data.issues)} />
+          </Card>
+          <Card>
+            <Info header="Last Update" value={data.last_update} />
+          </Card>
         </div>
       ) : (
         <ClipLoader></ClipLoader>

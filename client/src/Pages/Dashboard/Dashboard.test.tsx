@@ -15,7 +15,7 @@ describe("Dashboard", () => {
   it("provides valid username and repository and checks result", async () => {
     const fetchSpy = vi.spyOn(globalThis, "fetch").mockResolvedValue({
       status: 200,
-      json: async () => await import("../../Mocks/overview.valid.json"),
+      json: async () => await import("../../mocks/overview.valid.json"),
     } as Response);
 
     render(<Dashboard />);
@@ -41,7 +41,7 @@ describe("Dashboard", () => {
   it("provides invalid repository and checks result", async () => {
     const fetchSpy = vi.spyOn(globalThis, "fetch").mockResolvedValue({
       status: 404,
-      json: async () => await import("../../Mocks/overview.invalid.json"),
+      json: async () => await import("../../mocks/overview.invalid.json"),
     } as Response);
 
     render(<Dashboard />);

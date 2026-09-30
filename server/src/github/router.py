@@ -92,7 +92,7 @@ async def get_contributors(username: str, repository: str):
         response = await client.get(
             url=f"https://api.github.com/repos/{username}/{repository}/stats/contributors",
             headers=headers,
-            timeout=10,
+            timeout=None,
         )
 
         data = response.json()

@@ -3,12 +3,14 @@ from unittest.mock import MagicMock, patch
 
 from fastapi import status
 from fastapi.testclient import TestClient
+from github.models import Contributors
 from main import app
+from pydantic import ValidationError
 
 client = TestClient(app)
 
 
-@patch("github.router.requests.get")
+@patch("github.router.httpx2.AsyncClient.get")
 def test_get_overview_success(mock_get: MagicMock):
     """Test successful retrieval of overview with valid repository details."""
     mock_response = MagicMock()
@@ -91,3 +93,23 @@ def test_get_commit_history_nonexistent_repository(mock_get: MagicMock):
     response = client.get("/repository/microsoft/angular/commit-history")
 
     assert response.status_code == status.HTTP_404_NOT_FOUND
+
+
+@patch("github.router.requests.get")
+def test_get_contributors_success(mock_get: MagicMock):
+    """Test successful retrieval of contributors with valid repository details."""
+    mock_response = MagicMock()
+    mock_response.status_code = status.HTTP_200_OK
+
+    with open("src/tests/mocks/contributors.valid.json") as file:
+        data = json.load(file)
+
+    mock_response.json.return_value = data
+    mock_get.return_value = mock_response
+
+    response = client.get("/repository/microsoft/vscode/contributors")
+
+    try:
+        Contributors.model_validate(response)
+    except ValidationError as error:
+        assert False, error

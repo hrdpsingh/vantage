@@ -4,6 +4,7 @@ import { Contributors } from "../../Components/Contributors";
 import { Heatmap } from "../../Components/Heatmap";
 import { Overview } from "../../Components/Overview";
 import { Languages } from "../../Components/Languages";
+import { Topics } from "../../Components/Topics";
 
 export function Dashboard() {
   const location = useLocation();
@@ -17,6 +18,7 @@ export function Dashboard() {
       <Contributors username={username} repository={repository}></Contributors>
       <Heatmap username={username} repository={repository}></Heatmap>
       <Languages username={username} repository={repository}></Languages>
+      <Topics username={username} repository={repository}></Topics>
     </main>
   );
 }
