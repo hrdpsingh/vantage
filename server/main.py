@@ -1,6 +1,15 @@
-def main():
-    print("Hello from server!")
+from contextlib import asynccontextmanager
+
+import httpx2
+from fastapi import FastAPI
+from routes import router
 
 
-if __name__ == "__main__":
-    main()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    app.state.client = httpx2.AsyncClient()
+    yield
+
+
+app = FastAPI(lifespan=lifespan)
+app.include_router(router)
