@@ -1,5 +1,4 @@
 from datetime import UTC, datetime
-from typing import Any
 
 from pydantic import HttpUrl
 
@@ -34,6 +33,6 @@ def compute_percentages(languages: dict[str, int]) -> dict[str, float]:
     return filtered_percentages
 
 
-def html_url(files: dict[str, Any], key: str) -> HttpUrl | None:
-    entry: dict[str, Any] | None = files.get(key)
+def html_url(files: dict[str, dict[str, HttpUrl] | None], key: str) -> HttpUrl | None:
+    entry: dict[str, HttpUrl] | None = files.get(key)
     return entry.get("html_url") if entry else None

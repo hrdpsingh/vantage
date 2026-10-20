@@ -1,5 +1,4 @@
 import os
-from typing import Any
 
 import httpx2
 from dotenv import load_dotenv
@@ -13,6 +12,7 @@ from models import (
     PunchCard,
     WeekActivity,
 )
+from pydantic import HttpUrl
 from services import compute_percentages, format_date, html_url
 
 router = APIRouter()
@@ -108,7 +108,7 @@ async def get_profile(request: Request, username: str, repository: str):
     )
     data = response.json()
 
-    files: dict[str, Any] = data.get("files") or {}
+    files: dict[str, dict[str, HttpUrl] | None] = data.get("files") or {}
 
     return Profile(
         documentation=data.get("documentation"),
