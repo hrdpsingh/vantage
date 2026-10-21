@@ -33,6 +33,7 @@ async def get_overview(request: Request, username: str, repository: str):
         timeout=timeout,
     )
     data = response.json()
+    data["updated_at"] = format_date(data["updated_at"])
 
     return data
 

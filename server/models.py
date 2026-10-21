@@ -2,6 +2,7 @@ from pydantic import BaseModel, Field, HttpUrl, RootModel
 
 
 class Overview(BaseModel):
+    html_url: HttpUrl
     stars_count: int = Field(validation_alias="stargazers_count")
     forks_count: int
     issues_count: int = Field(validation_alias="open_issues_count")
@@ -20,6 +21,7 @@ class CommitActivity(RootModel[list[WeekActivity]]):
 
 class Author(BaseModel):
     username: str = Field(validation_alias="login")
+    url: HttpUrl
     avatar_url: HttpUrl
 
 
