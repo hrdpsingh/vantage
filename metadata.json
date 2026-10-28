@@ -1,0 +1,8 @@
+{
+  "name": "Vantage",
+  "description": "Comprehensive analytics and intelligence dashboard for GitHub repositories, providing deep insights into activity, issues, releases, and contributors.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
