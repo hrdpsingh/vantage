@@ -24,7 +24,7 @@ function normalizeMatrix(matrix: number[][]): number[][] {
 
 export function PunchCard({ username, repository }: Details) {
   const url = `http://127.0.0.1:8000/${username}/${repository}/punch-card`;
-  const data = useFetch<PunchCardItem[]>(username, repository, url);
+  const data = useFetch<PunchCardItem[]>(url);
 
   const matrix: number[][] = Array.from({ length: 7 }, () =>
     new Array(24).fill(0),

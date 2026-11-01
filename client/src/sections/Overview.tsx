@@ -1,45 +1,48 @@
 import { useFetch } from "../hooks/useFetch";
 import type { Details } from "../types/repository";
-import { Pill } from "../components/Pill";
 import { Card } from "../components/Card";
 import { Info } from "../components/Info";
 import { ClipLoader } from "react-spinners";
 
 interface Data {
-  stars_count: number;
-  forks_count: number;
-  issues_count: number;
-  last_update: string;
+  avatarUrl: string;
+  name: string;
+  starsCount: number;
+  forksCount: number;
+  issuesCount: number;
+  lastUpdate: string;
   topics: string[];
 }
 
 export function Overview({ username, repository }: Details) {
   const url = `http://127.0.0.1:8000/${username}/${repository}/overview`;
-  const data = useFetch<Data>(username, repository, url);
+  const data = useFetch<Data>(url);
 
   return (
-    <div>
+    <div className="p-4 bg-gray-900 border-b border-gray-800">
       {data ? (
-        <div>
+        <div className="space-y-4">
+          <div className="flex space-x-2">
+            <img src={data.avatarUrl} className="w-6 h-6"></img>
+            <h1 className="text-white">{data.name}</h1>
+          </div>
           <div className="flex flex-col sm:flex-row gap-4">
             <Card>
-              <Info header="Stars" value={String(data.stars_count)} />
+              <Info header="Stars" value={String(data.starsCount)} />
             </Card>
             <Card>
-              <Info header="Forks" value={String(data.forks_count)} />
+              <Info header="Forks" value={String(data.forksCount)} />
             </Card>
             <Card>
-              <Info header="Issues" value={String(data.issues_count)} />
+              <Info header="Issues" value={String(data.issuesCount)} />
             </Card>
             <Card>
-              <Info header="Last Update" value={data.last_update} />
+              <Info header="Last Update" value={data.lastUpdate} />
             </Card>
           </div>
-          <div className="flex flex-row flex-wrap items-center gap-2">
-            {data.topics.map((topic, index) => (
-              <Pill key={index}>
-                <p>{topic}</p>
-              </Pill>
+          <div className="flex flex-row flex-wrap items-center gap-4">
+            {data.topics.map((topic) => (
+              <p className="text-white">#{topic}</p>
             ))}
           </div>
         </div>
