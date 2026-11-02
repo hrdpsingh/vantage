@@ -1,7 +1,7 @@
 [project]
 name = "server"
 version = "0.1.0"
-description = "Add your description here"
+description = "An application for visualizing a public repository using the GitHub API."
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [

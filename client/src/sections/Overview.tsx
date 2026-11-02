@@ -3,10 +3,13 @@ import type { Details } from "../types/repository";
 import { Card } from "../components/Card";
 import { Info } from "../components/Info";
 import { ClipLoader } from "react-spinners";
+import { Link, Storage } from "@mui/icons-material";
 
 interface Data {
   avatarUrl: string;
   name: string;
+  size: number;
+  htmlUrl: string;
   starsCount: number;
   forksCount: number;
   issuesCount: number;
@@ -22,9 +25,22 @@ export function Overview({ username, repository }: Details) {
     <div className="p-4 bg-gray-900 border-b border-gray-800">
       {data ? (
         <div className="space-y-4">
-          <div className="flex space-x-2">
-            <img src={data.avatarUrl} className="w-6 h-6"></img>
-            <h1 className="text-white">{data.name}</h1>
+          <div className="flex space-x-2 items-center">
+            <img src={data.avatarUrl} className="w-12 h-12"></img>
+            <div className="flex flex-col">
+              <h1 className="text-lg">{data.name}</h1>
+              <div className="flex items-center space-x-1 text-gray-400 text-sm">
+                <Storage fontSize="small"></Storage>
+                <p>{data.size} GB</p>
+              </div>
+            </div>
+            <a
+              href={data.htmlUrl}
+              className="text-white ml-auto bg-gray-800 px-2 py-1 rounded-md border border-gray-700 flex items-center space-x-1"
+            >
+              <Link fontSize="small"></Link>
+              <span>GitHub</span>
+            </a>
           </div>
           <div className="flex flex-col sm:flex-row gap-4">
             <Card>

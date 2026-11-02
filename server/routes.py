@@ -35,6 +35,7 @@ async def get_overview(request: Request, username: str, repository: str):
     data = response.json()
     data["updated_at"] = format_date(data["updated_at"])
     data["avatar_url"] = data["owner"]["avatar_url"]
+    data["size"] = round(data["size"] / (1024**2), 2)
 
     return data
 

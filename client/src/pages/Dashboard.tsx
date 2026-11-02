@@ -11,7 +11,7 @@ export function Dashboard() {
   const repository = location.state?.repository;
 
   return (
-    <main className="bg-gray-950 min-h-screen">
+    <main className="bg-gray-950 min-h-screen text-white">
       <Overview username={username} repository={repository}></Overview>
       <CommitActivity
         username={username}

@@ -4,6 +4,7 @@ from pydantic import BaseModel, Field, HttpUrl, RootModel
 class Overview(BaseModel):
     avatar_url: HttpUrl
     name: str = Field(validation_alias="full_name")
+    size: float
     html_url: HttpUrl
     stars_count: int = Field(validation_alias="stargazers_count")
     forks_count: int
