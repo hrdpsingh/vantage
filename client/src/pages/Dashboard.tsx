@@ -1,8 +1,6 @@
 import { useLocation } from "react-router-dom";
-import { CommitActivity } from "../sections/CommitActivity";
-import { Contributors } from "../sections/Contributors";
-import { PunchCard } from "../sections/PunchCard";
 import { Overview } from "../sections/Overview";
+import { Profile } from "../sections/Profile";
 import { Languages } from "../sections/Languages";
 
 export function Dashboard() {
@@ -13,13 +11,10 @@ export function Dashboard() {
   return (
     <main className="bg-gray-950 min-h-screen text-white">
       <Overview username={username} repository={repository}></Overview>
-      <CommitActivity
-        username={username}
-        repository={repository}
-      ></CommitActivity>
-      <Contributors username={username} repository={repository}></Contributors>
-      <PunchCard username={username} repository={repository}></PunchCard>
-      <Languages username={username} repository={repository}></Languages>
+      <div className="p-8 space-y-8">
+        <Profile username={username} repository={repository}></Profile>
+        <Languages username={username} repository={repository}></Languages>
+      </div>
     </main>
   );
 }

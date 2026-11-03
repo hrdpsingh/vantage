@@ -42,17 +42,17 @@ export function Overview({ username, repository }: Details) {
               <span>GitHub</span>
             </a>
           </div>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Card>
+          <div className="flex gap-4">
+            <Card elevated={false}>
               <Info header="Stars" value={String(data.starsCount)} />
             </Card>
-            <Card>
+            <Card elevated={false}>
               <Info header="Forks" value={String(data.forksCount)} />
             </Card>
-            <Card>
+            <Card elevated={false}>
               <Info header="Issues" value={String(data.issuesCount)} />
             </Card>
-            <Card>
+            <Card elevated={false}>
               <Info header="Last Update" value={data.lastUpdate} />
             </Card>
           </div>
