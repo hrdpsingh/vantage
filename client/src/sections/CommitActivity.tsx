@@ -10,7 +10,7 @@ interface DataPoint {
 
 export function CommitActivity({ username, repository }: Details) {
   const url = `http://127.0.0.1:8000/${username}/${repository}/commit-activity`;
-  const data = useFetch<DataPoint[]>(username, repository, url);
+  const data = useFetch<DataPoint[]>(url);
 
   return (
     <div>
