@@ -19,14 +19,14 @@ interface Data {
 
 export function Overview({ username, repository }: Details) {
   const url = `http://127.0.0.1:8000/${username}/${repository}/overview`;
-  const data = useFetch<Data>(url);
+  const data = useFetch<Data>(url, true);
 
   return (
     <div className="p-4 bg-gray-900 border-b border-gray-800">
       {data ? (
         <div className="space-y-4">
-          <div className="flex space-x-2 items-center">
-            <img src={data.avatarUrl} className="w-12 h-12"></img>
+          <div className="flex space-x-4 items-center">
+            <img src={data.avatarUrl} className="w-12 h-12 rounded-md"></img>
             <div className="flex flex-col">
               <h1 className="text-lg">{data.name}</h1>
               <div className="flex items-center space-x-1 text-gray-400 text-sm">
@@ -36,7 +36,7 @@ export function Overview({ username, repository }: Details) {
             </div>
             <a
               href={data.htmlUrl}
-              className="text-white ml-auto bg-gray-800 px-2 py-1 rounded-md border border-gray-700 flex items-center space-x-1"
+              className="text-white bg-gray-800 px-2 py-1 rounded-md border border-gray-700 flex items-center space-x-1"
             >
               <Link fontSize="small"></Link>
               <span>GitHub</span>

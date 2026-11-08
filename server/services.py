@@ -14,23 +14,18 @@ def format_date(timestamp: str | int) -> str:
 
 def compute_percentages(languages: dict[str, int]) -> dict[str, float]:
     total_bytes = sum(languages.values())
-    percentages = {
-        key: round(value / total_bytes * 100, 3) for key, value in languages.items()
+
+    percentages: dict[str, float] = {
+        language: round((bytes / total_bytes) * 100.0, 3)
+        for language, bytes in languages.items()
     }
 
-    total = 0
-    for percentage in percentages.values():
-        if percentage >= 0.1:
-            total += percentage
+    if len(percentages) > 5:
+        top_languages = dict(list(percentages.items())[:5])
+        top_languages["Other"] = round(100.0 - sum(top_languages.values()), 3)
+        return top_languages
 
-    filtered_percentages = {
-        key: value for key, value in percentages.items() if value >= 0.1
-    }
-
-    other = round(100.0 - total, 3)
-    filtered_percentages["Other"] = other
-
-    return filtered_percentages
+    return percentages
 
 
 def html_url(files: dict[str, dict[str, HttpUrl] | None], key: str) -> HttpUrl | None:

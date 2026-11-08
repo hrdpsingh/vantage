@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 import httpx2
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
 from routes import router
 
 

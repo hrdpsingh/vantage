@@ -14,7 +14,7 @@ interface Data {
 
 export function Profile({ username, repository }: Details) {
   const url = `http://127.0.0.1:8000/${username}/${repository}/profile`;
-  const data = useFetch<Data>(url);
+  const data = useFetch<Data>(url, true);
 
   return (
     <div>

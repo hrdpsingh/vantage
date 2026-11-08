@@ -3,6 +3,8 @@ import os
 import httpx2
 from dotenv import load_dotenv
 from fastapi import APIRouter, Request
+from pydantic import HttpUrl
+
 from models import (
     CommitActivity,
     Contributors,
@@ -10,9 +12,7 @@ from models import (
     Overview,
     Profile,
     PunchCard,
-    WeekActivity,
 )
-from pydantic import HttpUrl
 from services import compute_percentages, format_date, html_url
 
 router = APIRouter()
@@ -49,15 +49,10 @@ async def get_commit_activity(request: Request, username: str, repository: str):
         timeout=timeout,
     )
     data = response.json()
+    for index, item in enumerate(data):
+        item["index"] = index
 
-    return CommitActivity(
-        root=[
-            WeekActivity(
-                week_start_date=format_date(item["week"]), daywise_commits=item["days"]
-            )
-            for item in data
-        ]
-    )
+    return data
 
 
 @router.get("/{username}/{repository}/contributors", response_model=Contributors)
@@ -69,6 +64,7 @@ async def get_contributors(request: Request, username: str, repository: str):
         timeout=timeout,
     )
     data = response.json()
+    data = data[::-1][:10]
 
     return data
 

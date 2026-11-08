@@ -14,8 +14,8 @@ class Overview(BaseModel):
 
 
 class WeekActivity(BaseModel):
-    week_start_date: str
-    daywise_commits: list[int]
+    index: int
+    commits: int = Field(validation_alias="total")
 
 
 class CommitActivity(RootModel[list[WeekActivity]]):
@@ -24,7 +24,7 @@ class CommitActivity(RootModel[list[WeekActivity]]):
 
 class Author(BaseModel):
     username: str = Field(validation_alias="login")
-    url: HttpUrl
+    html_url: HttpUrl
     avatar_url: HttpUrl
 
 
