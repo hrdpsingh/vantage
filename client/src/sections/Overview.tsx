@@ -36,6 +36,8 @@ export function Overview({ username, repository }: Details) {
             </div>
             <a
               href={data.htmlUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-white bg-gray-800 px-2 py-1 rounded-md border border-gray-700 flex items-center space-x-1"
             >
               <Link fontSize="small"></Link>

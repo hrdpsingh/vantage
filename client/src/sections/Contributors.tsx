@@ -53,7 +53,7 @@ export function Contributors({ username, repository }: Details) {
                   </div>
                 </div>
               ) : (
-                <div>
+                <div className="flex flex-col space-y-2">
                   <span>Commits: {item.commitsCount}</span>
                   <span>Could not find account.</span>
                 </div>

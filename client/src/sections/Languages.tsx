@@ -35,7 +35,7 @@ export function Languages({ username, repository }: Details) {
     <Card elevated={true}>
       <h2 className="text-2xl font-bold">Languages</h2>
       {data ? (
-        <ResponsiveContainer width={400} height={250}>
+        <ResponsiveContainer width={400} height={264}>
           <PieChart>
             <Pie
               data={transformedData}

@@ -44,7 +44,7 @@ class Languages(RootModel[dict[str, float]]):
 class CommitTiming(BaseModel):
     day: int
     hour: int
-    count: int
+    commits: int = Field(validation_alias="count")
 
 
 class PunchCard(RootModel[list[CommitTiming]]):

@@ -25,7 +25,10 @@ export function CommitActivity({ username, repository }: Details) {
       <h2 className="text-2xl font-bold">Commit Activity</h2>
       {data ? (
         <ResponsiveContainer width="100%" height={300}>
-          <AreaChart data={data} margin={{ bottom: 20, left: 20, top: 20 }}>
+          <AreaChart
+            data={data}
+            margin={{ bottom: 20, left: 20, top: 20, right: 20 }}
+          >
             <defs>
               <linearGradient id="gradient" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor="#3340d4" stopOpacity={0.6}></stop>

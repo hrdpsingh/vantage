@@ -10,7 +10,7 @@ export function Card({
   return (
     <div>
       {elevated ? (
-        <div className="rounded-lg bg-gray-900 border border-gray-800 p-4 w-fit h-fit space-y-4 w-full">
+        <div className="rounded-lg bg-gray-900 border border-gray-800 p-4 w-full space-y-4">
           {children}
         </div>
       ) : (
